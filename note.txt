@@ -1,0 +1,15 @@
+REST = Representational State Transfer
+
+Pengertian: Sistem Arsitektur Terdistribusi. Jadi simpelnya adalah panduan komunikasi data untuk melakukan crud antara client dan server.
+
+Rest ini dibutuhkan agar server dapat melakukan CRUD meskipun clietnya berbeda platform.
+Bahasa Teknis nya adalah REST ini seperti menjembatani antara server dengan data(request) dari client, lalu mengelola data/request mengupdate dan menghapus (CRUD) data dari request sesuai dengan data yang diperintahkan dari client, selama URL/Path nya benar dan juga HTTP Verb(Mrthod) nya benar dan data yg dikirim sesuai dengan requirement yang dibutuhkan/ditetapkan, maka data akan di proses oleh server ini menggunakan REST.
+
+JADI REST ini kaya arsitektur sebuah server yg menyediakan resource, dimana kita bisa melakukan CRUD dari aplikasi client dan berbagai jenis aplikasi client.
+
+BLUEPRINT ENDPOINT REST API - COMMENTS
+GET /comments - list all comments
+POST /comments - create a new comment
+GET /comments/:id - get one comment by id
+PATCH/PUT /comments/:id - update one comment
+DELETE /comments/:id - delete one comment
