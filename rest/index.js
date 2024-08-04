@@ -1,12 +1,42 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 
-// middleware untuk menangkap data yg dikirim dari form yg method nya POST, karena kalau tidak pakai middleware maka nilainya akan undefined
-app.use(express.json()); // untuk mengirim data berupa json
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// secara default express sudah memiliki method urlencoded
-// default nya data yg diterima dari form itu dapat diterima, tapi undefined, makanya di express di parsing ke yg namanya middleware, dan ini middleware urlencoded({ extended: true })
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
+// untuk menampung data yg di CRUD, karena belum terhubung ke database
+const comments = [
+  {
+    username: "Budi",
+    text: "Komentar ini sangat informatif dan berguna",
+  },
+  {
+    username: "Susi",
+    text: "Saya sangat setuju dengan komentar ini",
+  },
+  {
+    username: "Ahmad",
+    text: "Terima kasih atas informasi yang diberikan",
+  },
+  {
+    username: "Tina",
+    text: "Komentar ini membantu saya memahami topik ini",
+  },
+  {
+    username: "Yoga",
+    text: "Sangat menarik! Saya mendapatkan wawasan baru",
+  },
+];
+
+// Latihan REST - Aplikasi CRUD Pengelolaan Komentar
+app.get("/comments", (req, res) => {
+  res.render("comments/index", { comments });
+});
+
+// Order latihan method GET dan POST
 app.get("/order", (req, res) => {
   res.send("GET order response!");
 });
