@@ -7,10 +7,13 @@
   </head>
   <body>
     <h1>Comments</h1>
+
     <ul>
       <% for(let comment of comments) { %>
       <li><%= comment.text %> - <%= comment.username %></li>
       <% } %>
     </ul>
+
+    <a href="/comments/create">Add</a>
   </body>
 </html>

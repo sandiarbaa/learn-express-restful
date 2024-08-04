@@ -32,8 +32,22 @@ const comments = [
 ];
 
 // Latihan REST - Aplikasi CRUD Pengelolaan Komentar
+// get all comment
 app.get("/comments", (req, res) => {
   res.render("comments/index", { comments });
+});
+
+// view create comment
+app.get("/comments/create", (req, res) => {
+  res.render("comments/create");
+});
+
+// create new comment
+app.post("/comments", (req, res) => {
+  const { username, text } = req.body;
+  comments.push({ username, text });
+  // res.send("it works!");
+  res.redirect("/comments"); // kalau redirect itu dia berdasarkan url ya, bukan view yg ada di direktori folder project
 });
 
 // Order latihan method GET dan POST
