@@ -11,7 +11,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // untuk menampung data yg di CRUD, karena belum terhubung ke database
-const comments = [
+let comments = [
   {
     id: uuidv4(),
     username: "Budi",
@@ -77,6 +77,13 @@ app.patch("/comments/:id", (req, res) => {
   const newComment = req.body.text;
   const foundComment = comments.find((comment) => comment.id === id);
   foundComment.text = newComment;
+  res.redirect("/comments");
+});
+
+// delete comment
+app.delete("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  comments = comments.filter((comment) => comment.id !== id); // kalau id nya sama dengan yg di array comments, maka hapus, jangan masukan ke dalam array comments
   res.redirect("/comments");
 });
 
