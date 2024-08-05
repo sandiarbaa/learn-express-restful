@@ -1,10 +1,12 @@
 const express = require("express");
-const { v4: uuidv4 } = require("uuid");
 const app = express();
+const { v4: uuidv4 } = require("uuid");
+const methodOverride = require("method-override");
 const path = require("path");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method")); // diletakkan di url, untuk merubah method post menjadi apa yg kita inginkan PATCH/PUT/DELETE
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -58,9 +60,24 @@ app.post("/comments", (req, res) => {
 // show detail comment by id
 app.get("/comments/:id", (req, res) => {
   const { id } = req.params;
-  // const comment = comments.find((comment) => comment.id === parseInt(id));
-  const comment = comments.find((comment) => comment.id === id); // sudah sesuai dengan unique id yg di generate oleh uuid
+  const comment = comments.find((comment) => comment.id === id);
   res.render("comments/show", { comment });
+});
+
+// view update comment by id
+app.get("/comments/:id/edit", (req, res) => {
+  const { id } = req.params;
+  const comment = comments.find((comment) => comment.id === id);
+  res.render("comments/edit", { comment });
+});
+
+// update comment by id - PATCH
+app.patch("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  const newComment = req.body.text;
+  const foundComment = comments.find((comment) => comment.id === id);
+  foundComment.text = newComment;
+  res.redirect("/comments");
 });
 
 // Order latihan method GET dan POST
